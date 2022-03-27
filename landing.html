@@ -9,9 +9,12 @@
       href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="landing.css" />
+    <link rel="stylesheet" href="./public/css/landing.css" />
   </head>
   <body>
+    <!-- ALAN API -->
+    <div class="alan-btn"></div>
+
     <main class="main">
       <!-- Header -->
       <header class="header">
@@ -61,7 +64,10 @@
             src="https://raw.githubusercontent.com/MohamedAridah/frontendmentor_url-shortening-api/main/images/illustration-working.svg"
             alt="Working Illustration"
           /> -->
-          <img src="images/illustration_1.svg" alt="Working Illustration" />
+          <img
+            src="/public/images/illustration_1.svg"
+            alt="Working Illustration"
+          />
         </div>
       </section>
       <!-- Features -->
@@ -307,5 +313,26 @@
       </footer>
     </main>
     <script src="https://unpkg.com/boxicons@2.1.2/dist/boxicons.js"></script>
+    <script
+      type="text/javascript"
+      src="https://studio.alan.app/web/lib/alan_lib.min.js"
+    ></script>
+    <script>
+      var alanBtnInstance = alanBtn({
+        key: "6071a925a2ce474dedcd3d545927f8722e956eca572e1d8b807a3e2338fdd0dc/stage",
+        onCommand: function (commandData) {
+          if (commandData.command === "getSignup") {
+            //call client code that will react on the received command
+            console.log("Dashboard");
+            window.location.replace("public/signUp.html");
+          }
+        },
+        rootEl: document.getElementById("alan-btn"),
+      });
+      // if (commandData.command === "getDashboard") {
+      //   console.log("Dashboard");
+      //   window.location.replace("/signUp.html");
+      // }
+    </script>
   </body>
 </html>
