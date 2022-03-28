@@ -290,29 +290,31 @@
 <script>
   function subscribed(event) {
     event.preventDefault();
+
+    var email = document.getElementById("subscribedEmail");
+    var today = new Date();
+    var currentdate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        db.collection("subscribedUsers").add({
+          email: email,
+          date: currentdate
+        }).then(function () {
+          console.log("Subscribed user added to firestore");
+          // sendMail();
+          // window.location.assign("mainClient.html");
+        }).catch(function (error) {
+          console.log("Error adding new user: " + error);
+        });
+      }
+    });
+
     var alertstr = "thank you for subscribing";
 
     alert(alertstr);
   }
 
-  var email = document.getElementById("subscribedEmail");
-  var today = new Date();
-  var currentdate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-  firebase.auth().onAuthStateChanged(function (user) {
-    if (user) {
-      db.collection("subscribedUsers").add({
-        email: email,
-        subscribed: true,
-        date: currentdate
-      }).then(function () {
-        console.log("Subscribed user added to firestore");
-        // sendMail();
-        // window.location.assign("mainClient.html");
-      }).catch(function (error) {
-        console.log("Error adding new user: " + error);
-      });
-    }
-  });
+
 
 </script>
 
