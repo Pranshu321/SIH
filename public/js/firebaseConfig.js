@@ -15,5 +15,6 @@ firebase.analytics();
 var db = firebase.firestore();
 var docRef = db.collection("users");
 var subscribedRef = db.collection("subscribedUsers");
+var servicesRef = db.collection("demoInfo");
 // var messageRef = db.collection("contacts");
 // var payRef = db.collection("payment");
