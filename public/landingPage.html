@@ -31,7 +31,7 @@
             <a href="pricing.html">Pricing</a>
             <a href="#resources">Resources</a>
             <a href="organization.html">Partners</a>
-            <a href="#resources">About Us</a>
+            <a href="aboutUs.html">About Us</a>
           </div>
           <div class="nav-buttons">
             <a href="signIn.html" class="log-in">Login</a>
@@ -66,10 +66,11 @@
       <div class="container">
         <!-- Short URL Feature -->
         <div class="url-shorten-feature">
-          <form class="url-shorten-form" id="url-shorten-form">
+          <form class="url-shorten-form" id="url-shorten-form" onsubmit="subscribed(event)">
             <div>
-              <input type="text" class="url-input" placeholder="Subscribe for grant updates..." autocomplete="off" />
-              <span class="alert"></span>
+              <input type="email" class="url-input" placeholder="Subscribe for grant updates..." autocomplete="off"
+                id="subscribedEmail" />
+              <!-- <span class="alert"></span> -->
             </div>
             <button type="submit" class="btn btn-lg btn-plus-icon">
               Subscribe
@@ -276,5 +277,43 @@
   </main>
   <script src="https://unpkg.com/boxicons@2.1.2/dist/boxicons.js"></script>
 </body>
+<!-- firebase scripts -->
+<script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-firestore.js"></script>
+<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+<script src="./js/firebaseConfig.js"></script>
+
+
+<script>
+  function subscribed(event) {
+    event.preventDefault();
+    var alertstr = "thank you for subscribing";
+
+    alert(alertstr);
+  }
+
+  var email = document.getElementById("subscribedEmail");
+  var today = new Date();
+  var currentdate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      db.collection("subscribedUsers").add({
+        email: email,
+        subscribed: true,
+        date: currentdate
+      }).then(function () {
+        console.log("Subscribed user added to firestore");
+        // sendMail();
+        // window.location.assign("mainClient.html");
+      }).catch(function (error) {
+        console.log("Error adding new user: " + error);
+      });
+    }
+  });
+
+</script>
 
 </html>
